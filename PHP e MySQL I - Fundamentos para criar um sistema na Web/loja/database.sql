@@ -1,0 +1,4 @@
+CREATE TABLEA produtos (
+
+
+);
