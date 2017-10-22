@@ -6,8 +6,9 @@ include("banco-produto.php");
 $nome = $_POST["nome"];
 $preco = $_POST["preco"];
 $descricao = $_POST["descricao"];
+$categoriaId = $_POST["categoria_id"];
 
-if(insereProduto($conexao, $nome, $preco, $descricao)) { ?>
+if(insereProduto($conexao, $nome, $preco, $descricao, $categoriaId)) { ?>
 	<p class="text-success">
     	Produto <?= $nome; ?> adicionado com sucesso!
 	</p>

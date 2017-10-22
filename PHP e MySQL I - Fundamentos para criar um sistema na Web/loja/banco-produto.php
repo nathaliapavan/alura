@@ -1,13 +1,15 @@
 <?php
 
-function insereProduto($conexao, $nome, $preco, $descricao) {
-	$query = "INSERT INTO produtos (nome, preco, descricao) VALUES ('{$nome}', {$preco}, '{$descricao}')";
+function insereProduto($conexao, $nome, $preco, $descricao, $categoriaId) {
+	$query = "INSERT INTO produtos (nome, preco, descricao, categoria_id) VALUES ('{$nome}', {$preco}, '{$descricao}', {$categoriaId})";
 	return mysqli_query($conexao, $query);
 }
 
 function listaProduto($conexao) {
 	$produtos = array();
-	$resultado = mysqli_query($conexao, 'SELECT * FROM produtos');
+	$resultado = mysqli_query($conexao, 'SELECT p.*, c.nome AS categoria_nome 
+											FROM produtos AS p 
+											JOIN categorias AS c ON c.id = p.categoria_id');
 	while ($produto = mysqli_fetch_assoc($resultado)) {
 		array_push($produtos, $produto);
 	}
