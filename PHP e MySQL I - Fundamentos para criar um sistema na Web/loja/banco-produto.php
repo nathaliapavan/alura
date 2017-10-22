@@ -5,6 +5,11 @@ function insereProduto($conexao, $nome, $preco, $descricao, $categoriaId, $usado
 	return mysqli_query($conexao, $query);
 }
 
+function alteraProduto($conexao, $id, $nome, $preco, $descricao, $categoriaId, $usado) {
+	$query = "UPDATE produtos SET nome = '{$nome}', preco = {$preco}, descricao = '{$descricao}', categoria_id = {$categoriaId}, usado = {$usado} WHERE id = {$id}";
+	return mysqli_query($conexao, $query);
+}
+
 function listaProduto($conexao) {
 	$produtos = array();
 	$resultado = mysqli_query($conexao, 'SELECT p.*, c.nome AS categoria_nome 
@@ -15,6 +20,12 @@ function listaProduto($conexao) {
 	}
 
 	return $produtos;
+}
+
+function buscaProduto($conexao, $id) {
+	$query = "SELECT * FROM produtos WHERE id = {$id}";
+	$resultado = mysqli_query($conexao, $query);
+	return mysqli_fetch_assoc($resultado);
 }
 
 function removeProduto($conexao, $id) {
