@@ -17,3 +17,5 @@ INSERT INTO categorias (nome) VALUES ("guloseimas");
 
 ALTER TABLE produtos ADD COLUMN categoria_id INTEGER;
 UPDATE produtos SET categoria_id = 4;
+
+ALTER TABLE produtos ADD COLUMN usado BOOLEAN DEFAULT FALSE;

@@ -8,7 +8,13 @@ $preco = $_POST["preco"];
 $descricao = $_POST["descricao"];
 $categoriaId = $_POST["categoria_id"];
 
-if(insereProduto($conexao, $nome, $preco, $descricao, $categoriaId)) { ?>
+if (array_key_exists('usado', $_POST)) {
+	$usado = "true";
+}else {
+	$usado = "false";
+}
+
+if(insereProduto($conexao, $nome, $preco, $descricao, $categoriaId, $usado)) { ?>
 	<p class="text-success">
     	Produto <?= $nome; ?> adicionado com sucesso!
 	</p>
