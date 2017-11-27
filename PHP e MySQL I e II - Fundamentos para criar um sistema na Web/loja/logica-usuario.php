@@ -5,7 +5,7 @@ session_start();
 function verificaUsuario() {
 	if (!usuarioEstaLogado()) {
 		$_SESSION['danger'] = "Você não tem acesso a essa funcionalidade";
-		header("Location: index.php?falhaDeSeguranca=true");
+		header("Location: index.php");
 		die();
 	}
 }
