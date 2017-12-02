@@ -9,6 +9,14 @@ class Produto {
 	private $categoria;
 	private $usado;
 
+	function __construct($nome, $preco, $descricao, Categoria $categoria, $usado) {
+		$this->nome      = $nome;
+		$this->preco     = $preco;
+		$this->descricao = $descricao;
+		$this->categoria = $categoria;
+		$this->usado     = $usado;
+	}
+
 	public function setId($id) {
 		$this->id = $id; 
 	}
@@ -17,34 +25,16 @@ class Produto {
 		return $this->id;
 	}
 
-	public function setNome($nome) {
-		$this->nome = $nome;
-	}
-
 	public function getNome() {
 		return $this->nome;
 	}
-
-	public function setPreco($preco) {
-		if ($preco > 0) {
-			$this->preco = $preco;
-		}
-	} 
 
 	public function getPreco() {
 		return $this->preco;
 	}
 
-	public function setDescricao($descricao) {
-		$this->descricao = $descricao;
-	}
-
 	public function getDescricao() {
 		return $this->descricao;
-	}
-
-	public function setCategoria($categoria) {
-		$this->categoria = $categoria;
 	}
 
 	public function getCategoria() {
@@ -66,6 +56,16 @@ class Produto {
 
 		return $this->preco;
 	}
+
+	function __toString() {
+		return $this->nome . ": R$ " . $this->preco;
+	}
+
+	/*
+	function __destruct() {
+		echo 'Produto destruido';
+	}
+	*/
 }
 
 
