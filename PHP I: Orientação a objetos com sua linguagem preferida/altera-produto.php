@@ -6,28 +6,28 @@ require_once("class/Categoria.php");
 
 $produto = new Produto();
 $categoria = new Categoria();
-$categoria->id = $_POST["categoria_id"];
+$categoria->setId($_POST["categoria_id"]);
 
-$produto->id = $_POST['id'];
-$produto->nome = $_POST["nome"];
-$produto->preco = $_POST["preco"];
-$produto->descricao = $_POST["descricao"];
-$produto->categoria = $categoria;
+$produto->setId($_POST['id']);
+$produto->setNome($_POST["nome"]);
+$produto->setPreco($_POST["preco"]);
+$produto->setDescricao($_POST["descricao"]);
+$produto->setCategoria($categoria);
 
 if (array_key_exists('usado', $_POST)) {
-	$produto->usado = "true";
+	$produto->setUsado("true");
 }else {
-	$produto->usado = "false";
+	$produto->setUsado("false");
 }
 
 if(alteraProduto($conexao, $produto)) { ?>
 	<p class="text-success">
-    	Produto <?= $produto->nome; ?> alterado com sucesso!
+    	Produto <?= $produto->getNome(); ?> alterado com sucesso!
 	</p>
 <?php }else { 
 	$msg = mysqli_error($conexao); ?>
 	<p class="text-danger">
-    	Produto <?= $produto->nome; ?>, não foi alterado: <?= $msg; ?>
+    	Produto <?= $produto->getNome(); ?>, não foi alterado: <?= $msg; ?>
 	</p>
 <?php	
 
