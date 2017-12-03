@@ -6,9 +6,11 @@ $produtoDao = new ProdutoDao($conexao);
 $categoria = new Categoria();
 $categoria->setId($_POST["categoria_id"]);
 
-$nome      = $_POST["nome"];
-$preco     = $_POST["preco"];
-$descricao = $_POST["descricao"];
+$nome        = $_POST["nome"];
+$preco       = $_POST["preco"];
+$descricao   = $_POST["descricao"];
+$tipoProduto = $_POST['tipoProduto'];
+$isbn        = $_POST['isbn'];
 
 if (array_key_exists('usado', $_POST)) {
 	$usado = "true";
@@ -16,7 +18,13 @@ if (array_key_exists('usado', $_POST)) {
 	$usado = "false";
 }
 
-$produto = new Produto($nome, $preco, $descricao, $categoria, $usado);
+if ($tipoProduto == "Livro") {
+    $produto = new Livro($nome, $preco, $descricao, $categoria, $usado);
+    $produto->setIsbn($isbn);
+} else {
+    $produto = new Produto($nome, $preco, $descricao, $categoria, $usado);
+}
+
 $produto->setId($_POST['id']);
 
 if($produtoDao->alteraProduto($produto)) { ?>

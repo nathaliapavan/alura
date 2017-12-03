@@ -15,6 +15,13 @@ require_once("cabecalho.php");
 		<td><?= $produto->precoComDesconto() ?></td>
 		<td><?= substr($produto->getDescricao(), 0, 40) ?></td>
 		<td><?= $produto->getCategoria()->getNome() ?></td>
+		<td>
+			<?php
+				if ($produto->temIsbn()) {
+					echo $produto->getIsbn();
+				}
+			?>
+		</td>
 		<td><a class="btn btn-primary" href="produto-altera-formulario.php?id=<?=$produto->getId()?>">Alterar</a></td>
 		<td>
 			<form action="remove-produto.php" method="post">

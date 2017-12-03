@@ -9,58 +9,100 @@ class ProdutoDao {
 	}
 	
 	function insereProduto(Produto $produto) {
-		$query = "INSERT INTO produtos (nome, preco, descricao, categoria_id, usado) VALUES ('{$produto->getNome()}', {$produto->getPreco()}, '{$produto->getDescricao()}', {$produto->getCategoria()->getId()}, {$produto->getUsado()})";
-		return mysqli_query($this->conexao, $query);
+
+	    $isbn = "";
+	    if ($produto->temIsbn()) {
+	        $isbn = $produto->getIsbn();
+	    }
+
+	    $tipoProduto = get_class($produto);
+
+	    $query = "insert into produtos (nome, preco, descricao, categoria_id, 
+	        usado, isbn, tipo_produto) values ('{$produto->getNome()}', 
+	            {$produto->getPreco()}, '{$produto->getDescricao()}', 
+	                {$produto->getCategoria()->getId()}, {$produto->getUsado()},
+	                    '{$isbn}', '{$tipoProduto}')";
+	    return mysqli_query($this->conexao, $query);
 	}
 
 	function alteraProduto(Produto $produto) {
-		$query = "UPDATE produtos SET nome = '{$produto->getNome()}', preco = {$produto->getPreco()}, descricao = '{$produto->getDescricao()}', categoria_id = {$produto->getCategoria()->getId()}, usado = {$produto->getUsado()} WHERE id = {$produto->getId()}";
-		return mysqli_query($this->conexao, $query);
+
+	    $isbn = "";
+	    if ($produto->temIsbn()) {
+	        $isbn = $produto->getIsbn();
+	    }
+
+	    $tipoProduto = get_class($produto);
+
+	    $query = "update produtos set nome = '{$produto->getNome()}', 
+	        preco = {$produto->getPreco()}, descricao = '{$produto->getDescricao()}', 
+	            categoria_id= {$produto->getCategoria()->getId()}, 
+	                usado = {$produto->getUsado()}, isbn = '{$isbn}', 
+	                    tipo_produto = '{$tipoProduto}' 
+	                        where id = '{$produto->getId()}'";
+	    var_dump($query);
+	    return mysqli_query($this->conexao, $query);
 	}
 
 	function listaProduto() {
-		$produtos = array();
-		$resultado = mysqli_query($this->conexao, 'SELECT p.*, c.nome AS categoria_nome 
-												FROM produtos AS p 
-												JOIN categorias AS c ON c.id = p.categoria_id');
-		while ($produto_array = mysqli_fetch_assoc($resultado)) {
-			
-			$categoria = new Categoria();
-			$categoria->setNome($produto_array['categoria_nome']);
 
-			$nome      = $produto_array['nome'];
-			$preco     = $produto_array['preco'];
-			$descricao = $produto_array['descricao'];
-			$usado     = $produto_array['usado'];
+	    $produtos = array();
+	    $resultado = mysqli_query($this->conexao, "select p.*,c.nome as categoria_nome 
+	        from produtos as p join categorias as c on c.id=p.categoria_id");
 
-			$produto = new Produto($nome, $preco, $descricao, $categoria, $usado);
-			$produto->setId($produto_array['id']);
+	    while($produto_array = mysqli_fetch_assoc($resultado)) {
 
-			//echo $produto;
+	        $categoria = new Categoria();
+	        $categoria->setNome($produto_array['categoria_nome']);
 
-			array_push($produtos, $produto);
-		}
+	        $produto_id = $produto_array['id'];
+	        $nome = $produto_array['nome'];
+	        $descricao = $produto_array['descricao'];
+	        $preco = $produto_array['preco'];
+	        $usado = $produto_array['usado'];
+	        $isbn = $produto_array['isbn'];
+	        $tipoProduto = $produto_array['tipo_produto'];
 
-		return $produtos;
+	        if ($tipoProduto == "Livro") {
+	            $produto = new Livro($nome, $preco, $descricao, $categoria, $usado);
+	            $produto->setIsbn($isbn);
+	        } else {
+	            $produto = new Produto($nome, $preco, $descricao, $categoria, $usado);
+	        }
+
+	        $produto->setId($produto_id);
+
+	        array_push($produtos, $produto);
+	    }
+
+	    return $produtos;
 	}
 
 	function buscaProduto($id) {
-		$query = "SELECT * FROM produtos WHERE id = {$id}";
-		$resultado = mysqli_query($this->conexao, $query);
-		$produto_buscado = mysqli_fetch_assoc($resultado);
+	    $query = "select * from produtos where id = {$id}";
+	    $resultado = mysqli_query($this->conexao, $query);
+	    $produto_buscado = mysqli_fetch_assoc($resultado);
 
-		$categoria = new Categoria();
-		$categoria->setId($produto_buscado['categoria_id']);
+	    $categoria = new Categoria();
+	    $categoria->setId($produto_buscado['categoria_id']);
 
-		$nome      = $produto_buscado['nome'];
-		$descricao = $produto_buscado['descricao'];
-		$preco     = $produto_buscado['preco'];
-		$usado     = $produto_buscado['usado']; 
+	    $nome = $produto_buscado['nome'];
+	    $descricao = $produto_buscado['descricao'];
+	    $preco = $produto_buscado['preco'];
+	    $usado = $produto_buscado['usado'];
+	    $isbn = $produto_buscado['isbn'];
+	    $tipoProduto = $produto_buscado['tipo_produto'];
 
-		$produto = new Produto($nome, $preco, $descricao, $categoria, $usado);
-		$produto->setId($produto_buscado['id']);
+	    if ($tipoProduto == "Livro") {
+	        $produto = new Livro($nome, $preco, $descricao, $categoria, $usado);
+	        $produto->setIsbn($isbn);
+	    } else {
+	        $produto = new Produto($nome, $preco, $descricao, $categoria, $usado);
+	    }
 
-		return $produto;
+	    $produto->setId($produto_buscado['id']);
+
+	    return $produto;
 	}
 
 	function removeProduto($id) {

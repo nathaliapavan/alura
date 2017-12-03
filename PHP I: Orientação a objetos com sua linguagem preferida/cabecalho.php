@@ -1,5 +1,7 @@
 <?php 
 
+require_once("conecta.php");
+
 function carregaClasse($nomeDaClasse) {
 	require_once("class/".$nomeDaClasse.".php");
 }
@@ -8,7 +10,7 @@ spl_autoload_register("carregaClasse");
 
 error_reporting(E_ALL ^ E_NOTICE);
 require_once("mostra-alerta.php");
-require_once("conecta.php");
+
 
  mostraAlerta("success"); 
  mostraAlerta("danger");?>

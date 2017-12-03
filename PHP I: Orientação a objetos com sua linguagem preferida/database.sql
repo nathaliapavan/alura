@@ -27,3 +27,7 @@ CREATE TABLE usuarios (
 );
 
 INSERT INTO usuarios (email, senha) VALUES ("nanahpavan@gmail.com","827ccb0eea8a706c4c34a16891f84e7b");
+
+ALTER TABLE produtos ADD COLUMN isbn VARCHAR(255);
+
+ALTER TABLE produtos ADD COLUMN tipo_produto VARCHAR(255);
