@@ -1,7 +1,8 @@
 <?php 
 require_once("cabecalho.php"); 
-require_once("banco-categoria.php"); 
 require_once("logica-usuario.php");
+
+$categoriaDao = new CategoriaDao($conexao);
 
 verificaUsuario();
 
@@ -11,7 +12,7 @@ $categoria->setId(1);
 $produto = new Produto('', '', '', $categoria, '');
 
 $usado = '';
-$categorias = listaCategoria($conexao);
+$categorias = $categoriaDao->listaCategoria();
 
 ?>
 

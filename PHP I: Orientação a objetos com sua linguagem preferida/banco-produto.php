@@ -1,5 +1,4 @@
 <?php
-require_once("conecta.php"); 
 
 function insereProduto($conexao, Produto $produto) {
 	$query = "INSERT INTO produtos (nome, preco, descricao, categoria_id, usado) VALUES ('{$produto->getNome()}', {$produto->getPreco()}, '{$produto->getDescricao()}', {$produto->getCategoria()->getId()}, {$produto->getUsado()})";

@@ -1,5 +1,4 @@
 <?php
-require_once("conecta.php"); 
 
 function buscaUsuario($conexao, $email, $senha) {
 	$senha = md5($senha);

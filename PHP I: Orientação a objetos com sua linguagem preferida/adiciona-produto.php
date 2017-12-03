@@ -1,8 +1,8 @@
 <?php 
 require_once("cabecalho.php");
-require_once("banco-produto.php");
 require_once("logica-usuario.php"); 
 
+$produtoDao = new ProdutoDao($conexao);
 verificaUsuario();
 
 
@@ -21,7 +21,7 @@ if (array_key_exists('usado', $_POST)) {
 
 $produto = new Produto($nome, $preco, $descricao, $categoria, $usado);
 
-if(insereProduto($conexao, $produto)) { ?>
+if($produtoDao->insereProduto($produto)) { ?>
 	<p class="text-success">
     	Produto <?= $produto->getNome(); ?> adicionado com sucesso!
 	</p>
