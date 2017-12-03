@@ -31,3 +31,7 @@ INSERT INTO usuarios (email, senha) VALUES ("nanahpavan@gmail.com","827ccb0eea8a
 ALTER TABLE produtos ADD COLUMN isbn VARCHAR(255);
 
 ALTER TABLE produtos ADD COLUMN tipo_produto VARCHAR(255);
+
+ALTER TABLE produtos ADD COLUMN taxa_impressao VARCHAR(255);
+
+ALTER TABLE produtos ADD COLUMN water_mark VARCHAR(255);
