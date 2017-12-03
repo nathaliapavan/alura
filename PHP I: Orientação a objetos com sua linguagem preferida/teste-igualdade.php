@@ -1,7 +1,5 @@
 <?php
 
-require_once("class/Produto.php");
-
 $produto = new Produto();
 $produto->setPreco(59.9);
 //$produto->setNome('teste');
