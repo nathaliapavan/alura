@@ -11,5 +11,10 @@ class Ebook extends Livro {
 	public function getWaterMark() {
 		return $this->water_mark;
 	}
+
+	public function atualizaBaseadoEm($params) {
+		$this->setIsbn($params['isbn']);
+		$this->setWaterMark($params['water_mark']);
+	}
 }
 ?>
