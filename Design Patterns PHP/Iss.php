@@ -1,6 +1,6 @@
 <?php
 
-class Iss implements Imposto {
+class Iss implements iImposto {
 
 	public function calcula(Orcamento $orcamento) {
 		return $orcamento->getValor() * 0.06;

@@ -1,6 +1,6 @@
 <?php
 
-class Iccc implements Imposto {
+class Iccc implements iImposto {
 
 	public function calcula(Orcamento $orcamento) {
 		if ($orcamento->getValor() <= 1000) {
