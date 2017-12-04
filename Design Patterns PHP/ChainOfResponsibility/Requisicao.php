@@ -9,7 +9,7 @@ class Requisicao {
 	}
 
 	public function getFormato() {
-		return $this->getFormato;
+		return $this->formato;
 	}
 }
 
