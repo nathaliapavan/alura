@@ -6,18 +6,21 @@ function autoload($classe) {
 
 spl_autoload_register("autoload");
 
-$reforma = new Orcamento(5);
+$reforma = new Orcamento(5000);
 $icsm    = new Icms();
 $iss     = new Iss();
 $iccc    = new Iccc();
+$ikcv    = new Ikcv();
 
 $calculaImposto = new CalculaImposto();
-
+echo "ICMS - ";
 echo $calculaImposto->realizaCalculo($reforma, $icsm);
-echo "<br>";
+echo "<br>ISS - ";
 echo $calculaImposto->realizaCalculo($reforma, $iss);
-echo "<br>";
+echo "<br>ICCC - ";
 echo $calculaImposto->realizaCalculo($reforma, $iccc);
+echo "<br>IKCV - ";
+echo $calculaImposto->realizaCalculo($reforma, $ikcv);
 
 // descontos
 echo '<br><br>';
