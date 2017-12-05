@@ -1,12 +1,12 @@
 <?php
 
-abstract class TemplateImposto implements iImposto {
+abstract class TemplateImposto extends Imposto {
 
 	public final function calcula(Orcamento $orcamento) {
 		if ($this->usarMaximo($orcamento)) {
-			return $this->maximaTaxacao($orcamento);
+			return $this->maximaTaxacao($orcamento) + $this->calculaOutroImposto($orcamento);
 		}else {
-			return $this->minimaTaxacao($orcamento);
+			return $this->minimaTaxacao($orcamento) + $this->calculaOutroImposto($orcamento);
 		}
 	}
 

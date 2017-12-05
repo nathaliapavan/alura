@@ -7,7 +7,7 @@ function autoload($classe) {
 spl_autoload_register("autoload");
 
 $reforma = new Orcamento(5000);
-$icsm    = new Icms();
+$icsm    = new Icms(new Iss());
 $iss     = new Iss();
 $iccc    = new Iccc();
 $ikcv    = new Ikcv();
@@ -33,5 +33,10 @@ $reforma->addItem(new Item('Caneta', 2));
 
 echo $calculaDesconto->desconto($reforma);
 
+echo '<br><br>';
+
+// Decorator
+echo 'ImpostoAlto + ICMS - ';
+echo $calculaImposto->realizaCalculo($reforma, new ImpostoAlto(new Icms()));
 
 ?>
